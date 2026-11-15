@@ -1,0 +1,70 @@
+.restaurant-search {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)) auto;
+  gap: 1rem;
+  align-items: end;
+  margin: 2rem 0 1rem;
+}
+
+.restaurant-search__field {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.restaurant-search__field input,
+.restaurant-search__field select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--sb-color-control-border, #8d7b68);
+  border-radius: var(--sb-control-radius, 999px);
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.restaurant-search__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.restaurant-search__button {
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--sb-color-accent, #315d69);
+  border-radius: var(--sb-control-radius, 999px);
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.restaurant-search__button--primary {
+  background: var(--sb-color-accent, #315d69);
+  color: #fff;
+}
+
+/* Stack controls when the available screen width becomes narrow. */
+@media (max-width: 56rem) {
+  .restaurant-search {
+    grid-template-columns: 1fr;
+  }
+}
+
+.restaurant-search__field input::placeholder {
+  color: var(--sb-color-muted, #6b5f56);
+  opacity: 1;
+}
+
+.restaurant-search__button:not(:disabled):hover {
+  background: var(--sb-color-surface, #fdf6e9);
+}
+
+.restaurant-search__button--primary:not(:disabled):hover {
+  background: var(--sb-color-accent-hover, #245536);
+}
