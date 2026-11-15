@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { label: "Home", path: "/" },
   { label: "Food Recalls", path: "/recalls" },
   { label: "Restaurants", path: "/restaurants" },
-  { label: "About Us" },
+  { label: "About Us", path: "/about" },
 ];
 
 function Navbar() {

@@ -1,0 +1,26 @@
+.about-page {
+  width: 100%;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+  color: var(--ink, #2b2420);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.about-page__header {
+  margin-bottom: 1.5rem;
+}
+
+.about-page__header h1 {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.2;
+}
+
+.about-page__header h1:focus-visible {
+  outline: 3px solid var(--green, #2f6b45);
+  outline-offset: 3px;
+}

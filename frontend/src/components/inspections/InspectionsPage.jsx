@@ -6,6 +6,7 @@ import RestaurantDetails from "./RestaurantDetails";
 import InspectionsSnapshot from "./InspectionsSnapshot";
 import { fetchRestaurants } from "./api";
 import "./InspectionsPage.css";
+import RestaurantFooter from "./RestaurantFooter.jsx";
 
 const NEIGHBORHOODS = [
   "Back Bay",
@@ -194,6 +195,8 @@ function InspectionsPage() {
           />
         )}
       </section>
+
+      <RestaurantFooter />
     </div>
   );
 }

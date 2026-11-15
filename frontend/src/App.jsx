@@ -5,6 +5,7 @@ import InspectionsPage from "./components/inspections/InspectionsPage.jsx";
 import RecallsPage from "./components/recalls/RecallsPage.jsx";
 import AuthProvider from "./components/auth/AuthProvider.jsx";
 import AuthDialog from "./components/auth/AuthDialog.jsx";
+import About from "./components/About.jsx";
 import "./App.css";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/recalls" element={<RecallsPage />} />
+              <Route path="/about" element={<About />} />
               <Route
                 path="/restaurants"
                 element={
