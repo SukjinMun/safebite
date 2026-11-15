@@ -1,5 +1,6 @@
 import express from "express";
 import { getRestaurantDetails, listRestaurants } from "../db/inspections.js";
+import { parseRestaurantSort } from "../validation/restaurantSort.js";
 
 const router = express.Router();
 
@@ -10,10 +11,11 @@ router.get("/", async (req, res) => {
     result = "",
     page = "1",
     pageSize = "10",
+    sort = "",
   } = req.query;
 
   // Reject repeated or non-text query values.
-  const values = [name, neighborhood, result, page, pageSize];
+  const values = [name, neighborhood, result, page, pageSize, sort];
 
   if (values.some((value) => typeof value !== "string")) {
     return res.status(400).json({
@@ -27,6 +29,12 @@ router.get("/", async (req, res) => {
     return res.status(400).json({
       error: "result must be pass, fail, or empty.",
     });
+  }
+
+  const { value: sortSpec, error: sortError } = parseRestaurantSort(sort);
+
+  if (sortError) {
+    return res.status(400).json({ error: sortError });
   }
 
   const pageNumber = Number(page);
@@ -53,6 +61,7 @@ router.get("/", async (req, res) => {
     result: normalizedResult,
     page: pageNumber,
     pageSize: pageSizeNumber,
+    sort: sortSpec,
   });
 
   res.json(data);

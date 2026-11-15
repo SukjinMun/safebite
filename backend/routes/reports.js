@@ -12,6 +12,7 @@ import {
   requireReportUser,
 } from "../middleware/reportAuth.js";
 import { validateReportInput } from "../validation/reports.js";
+import { requireCsrf } from "../middleware/csrf.js";
 
 const router = Router();
 
@@ -71,12 +72,14 @@ router.get(
 router.post(
   "/restaurants/:restaurantId/reports",
   requireReportUser,
+  requireCsrf,
   requireRestaurant,
   validateReportBody,
   async (req, res) => {
     const report = await createReport(
       {
         restaurantId: req.params.restaurantId,
+        authorName: req.user.displayName,
         ...res.locals.reportInput,
       },
       res.locals.reportAuthorId,
@@ -89,6 +92,7 @@ router.post(
 router.put(
   "/reports/:reportId",
   requireReportUser,
+  requireCsrf,
   requireReportId,
   validateReportBody,
   async (req, res) => {
@@ -110,6 +114,7 @@ router.put(
 router.delete(
   "/reports/:reportId",
   requireReportUser,
+  requireCsrf,
   requireReportId,
   async (req, res) => {
     const deleted = await deleteReport(

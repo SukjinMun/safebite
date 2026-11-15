@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { createReport, deleteReport, fetchReports, updateReport } from "./api";
 import ReportForm from "./ReportForm";
 import "./CommunityReports.css";
+import { useAuth } from "../auth/auth.js";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -12,6 +13,12 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 function CommunityReports({ restaurantId }) {
+  const {
+    user,
+    openAuth,
+    loading: authLoading,
+    working: authWorking,
+  } = useAuth();
   const [attempt, setAttempt] = useState(0);
   const [response, setResponse] = useState({
     key: null,
@@ -30,18 +37,23 @@ function CommunityReports({ restaurantId }) {
   const cancelDeleteRef = useRef(null);
   const deleteErrorRef = useRef(null);
 
-  const requestKey = `${restaurantId}:${attempt}`;
+  const requestKey = `${restaurantId}:${user?.id ?? "anonymous"}:${attempt}`;
   const loading = response.key !== requestKey;
   const data = loading ? null : response.data;
   const error = loading ? null : response.error;
 
-  const activeEditor = editor?.restaurantId === restaurantId ? editor : null;
+  const activeEditor =
+    editor?.restaurantId === restaurantId && editor.actorId === user?.id
+      ? editor
+      : null;
 
   const activeDeletion =
-    deletion?.restaurantId === restaurantId ? deletion : null;
+    deletion?.restaurantId === restaurantId && deletion.actorId === user?.id
+      ? deletion
+      : null;
 
   const reportCount = data?.reports.length ?? 0;
-  const canWrite = Boolean(data?.currentUserId);
+  const canWrite = Boolean(user && data?.currentUserId === user.id);
   const controlsDisabled =
     isMutating || Boolean(activeEditor) || Boolean(activeDeletion);
 
@@ -114,7 +126,7 @@ function CommunityReports({ restaurantId }) {
     }
 
     setNotice("");
-    setEditor({ restaurantId, report });
+    setEditor({ restaurantId, report, actorId: user.id });
   }
 
   function handleCancelEditor() {
@@ -194,7 +206,7 @@ function CommunityReports({ restaurantId }) {
     deleteTriggerRef.current = trigger;
     setNotice("");
     setDeleteError("");
-    setDeletion({ restaurantId, reportId: report._id });
+    setDeletion({ restaurantId, reportId: report._id, actorId: user.id });
   }
 
   function handleCancelDelete() {
@@ -335,9 +347,17 @@ function CommunityReports({ restaurantId }) {
       {data && (
         <>
           {!canWrite && (
-            <p className="community-reports__notice">
-              Sign in to share an observation or manage your own reports.
-            </p>
+            <div className="community-reports__notice">
+              <p>Sign in to share an observation or manage your own reports.</p>
+              <button
+                className="community-reports__button"
+                type="button"
+                onClick={() => openAuth("login")}
+                disabled={authLoading || authWorking}
+              >
+                Sign in
+              </button>
+            </div>
           )}
 
           {canWrite && activeEditor && (

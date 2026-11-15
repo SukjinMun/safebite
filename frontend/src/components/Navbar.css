@@ -34,6 +34,40 @@
   list-style: none;
 }
 
+.navbar nav {
+  margin-left: auto;
+}
+.navbar-account {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+}
+.navbar-account__name {
+  max-width: 12rem;
+  overflow-wrap: anywhere;
+}
+.navbar-account button {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--green);
+  border-radius: 2rem;
+  background: #fff;
+  color: var(--green);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.navbar-account button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.navbar-account__error {
+  max-width: 17rem;
+  color: #9b341d;
+}
+
 .navbar-links a {
   font-weight: 700;
   color: var(--muted);
@@ -68,5 +102,9 @@
   .navbar-links {
     justify-content: center;
     gap: 0.75rem 1.25rem;
+  }
+
+  .navbar-account {
+    justify-content: center;
   }
 }

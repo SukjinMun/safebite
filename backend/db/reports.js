@@ -28,7 +28,7 @@ export async function listReports(restaurantId) {
 }
 
 export async function createReport(
-  { restaurantId, visitDate, description },
+  { restaurantId, visitDate, description, authorName },
   authorId,
 ) {
   const now = new Date();
@@ -37,6 +37,8 @@ export async function createReport(
   const report = {
     restaurantId,
     authorId: requireAuthorId(authorId),
+    authorName:
+      typeof authorName === "string" ? authorName.trim() : "Community member",
     visitDate,
     description,
     isSynthetic: true,

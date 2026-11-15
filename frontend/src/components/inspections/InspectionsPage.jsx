@@ -21,6 +21,7 @@ function InspectionsPage() {
     neighborhood: "",
     result: "",
     page: 1,
+    sort: [],
   });
 
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
@@ -37,7 +38,7 @@ function InspectionsPage() {
   const data = !loading && !failed ? response.data : null;
   const lastData = response.data;
 
-  // Reuse snapshot totals while paging within the same filters.
+  // Reuse snapshot totals while paging or sorting within the same filters.
   const snapshotMatchesQuery =
     response.query?.name === query.name &&
     response.query?.neighborhood === query.neighborhood &&
@@ -75,7 +76,36 @@ function InspectionsPage() {
   }, [selectedRestaurantId]);
 
   function handleSearch(filters) {
-    setQuery({ ...filters, page: 1 });
+    setQuery((current) => ({
+      ...current,
+      ...filters,
+      page: 1,
+    }));
+  }
+
+  function handleSortChange(field) {
+    setQuery((current) => {
+      const active = current.sort.find((entry) => entry.field === field);
+      let nextSort;
+
+      if (!active) {
+        // New columns become the next sorting priority.
+        nextSort = [...current.sort, { field, direction: "asc" }];
+      } else if (active.direction === "asc") {
+        // Reverse direction while preserving this column's priority.
+        nextSort = current.sort.map((entry) =>
+          entry.field === field ? { ...entry, direction: "desc" } : entry,
+        );
+      } else {
+        nextSort = current.sort.filter((entry) => entry.field !== field);
+      }
+
+      return { ...current, sort: nextSort, page: 1 };
+    });
+  }
+
+  function resetSort() {
+    setQuery((current) => ({ ...current, sort: [], page: 1 }));
   }
 
   function goToPage(nextPage) {
@@ -142,11 +172,14 @@ function InspectionsPage() {
 
           {lastData && !failed && (
             <RestaurantResults
-              restaurants={data?.restaurants ?? []}
+              restaurants={data?.restaurants ?? lastData.restaurants}
               total={lastData.total}
               page={lastData.page}
               totalPages={lastData.totalPages}
               loading={loading}
+              sortFields={query.sort}
+              onSortChange={handleSortChange}
+              onResetSort={resetSort}
               onPageChange={goToPage}
               onSelect={openDetails}
             />

@@ -67,7 +67,8 @@
   justify-self: end;
 }
 
-.restaurant-results__pagination button:disabled {
+.restaurant-results__pagination button:disabled,
+.restaurant-results__details:disabled {
   border-color: var(--sb-color-border, #dfe6ed);
   background: var(--sb-color-surface, #eef3f4);
   color: var(--sb-color-muted, #52616c);
@@ -181,4 +182,85 @@
 .restaurant-results__pagination button:not(:disabled):hover,
 .restaurant-results__details:hover {
   background: var(--sb-color-surface, #fdf6e9);
+}
+
+.restaurant-results__sort-help,
+.restaurant-results__sort-summary p {
+  margin: 0;
+  color: var(--sb-color-muted, #52616c);
+  font-size: 0.875rem;
+}
+
+.restaurant-results__sort-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  min-height: 2.75rem;
+  margin: 0.25rem 0 1rem;
+}
+
+.restaurant-results__sort-summary button {
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--sb-color-accent, #315d69);
+  font: inherit;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.restaurant-results__sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.restaurant-results__sort-arrow {
+  display: inline-block;
+  width: 1rem;
+  text-align: center;
+}
+
+.restaurant-results__sort-button[data-active="true"] {
+  color: var(--sb-color-accent, #315d69);
+}
+
+.restaurant-results__sort-priority {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.125rem;
+  border-radius: 999px;
+  background: var(--sb-color-accent, #315d69);
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.restaurant-results__sort-button:hover {
+  text-decoration: underline;
+}
+
+.restaurant-results__sort-button:focus-visible,
+.restaurant-results__sort-summary button:focus-visible {
+  outline: 3px solid var(--sb-color-accent, #315d69);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+.restaurant-results__scroll[aria-busy="true"] tbody {
+  opacity: 0.55;
 }

@@ -1,44 +1,4 @@
-async function requestJson(url, options = {}) {
-  const response = await fetch(url, {
-    credentials: "same-origin",
-    ...options,
-  });
-
-  // A successful delete has no JSON body.
-  if (response.status === 204) {
-    return null;
-  }
-
-  let data;
-
-  try {
-    data = await response.json();
-  } catch (error) {
-    // Preserve cancellation when an effect cleans up its request.
-    if (options.signal?.aborted) {
-      throw error;
-    }
-
-    const requestError = new Error(
-      "Could not read the server response. Please try again.",
-    );
-    requestError.status = response.status;
-    requestError.fieldErrors = {};
-    throw requestError;
-  }
-
-  // Fetch does not automatically reject HTTP error responses.
-  if (!response.ok) {
-    const error = new Error(
-      data?.error || "Could not complete the request. Please try again.",
-    );
-    error.status = response.status;
-    error.fieldErrors = data?.errors ?? {};
-    throw error;
-  }
-
-  return data;
-}
+import { requestJson } from "../../api/request.js";
 
 export function fetchRestaurants(query, signal) {
   const params = new URLSearchParams({
@@ -48,6 +8,15 @@ export function fetchRestaurants(query, signal) {
     page: String(query.page),
     pageSize: "10",
   });
+
+  if (query.sort?.length) {
+    params.set(
+      "sort",
+      query.sort
+        .map(({ field, direction }) => `${field}:${direction}`)
+        .join(","),
+    );
+  }
 
   return requestJson(`/api/restaurants?${params}`, { signal });
 }

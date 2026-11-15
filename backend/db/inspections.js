@@ -1,4 +1,5 @@
 import { db } from "./connection.js";
+import { DEFAULT_RESTAURANT_SORT } from "../validation/restaurantSort.js";
 
 export async function listRestaurants({
   name = "",
@@ -6,6 +7,7 @@ export async function listRestaurants({
   result = "",
   page = 1,
   pageSize = 10,
+  sort = DEFAULT_RESTAURANT_SORT,
 } = {}) {
   const matches = {};
 
@@ -67,7 +69,9 @@ export async function listRestaurants({
 
       // Filter using each restaurant's latest result.
       { $match: matches },
-      { $sort: { restaurantName: 1, restaurantId: 1 } },
+
+      // Sort all matches before pagination.
+      { $sort: sort },
 
       {
         $facet: {

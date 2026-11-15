@@ -3,6 +3,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 import { client } from "./db/connection.js";
+import session from "express-session";
+import passport from "./auth/passport.js";
+import MongoSessionStore, {
+  ensureSessionIndexes,
+} from "./auth/MongoSessionStore.js";
+import { ensureUserIndexes } from "./db/users.js";
+import authRouter from "./routes/auth.js";
 import restaurantsRouter from "./routes/restaurants.js";
 import reportsRouter from "./routes/reports.js";
 import recallsRouter from "./routes/recalls.js";
@@ -17,7 +24,35 @@ app.get("/api/test", (req, res) => {
   res.json({ message: "Backend works" });
 });
 
-// Mount shared session and Passport middleware before these routers.
+const sessionSecret = process.env.SESSION_SECRET;
+if (!sessionSecret || sessionSecret.length < 32) {
+  throw new Error(
+    "Run node scripts/configureSession.js in backend to configure SESSION_SECRET.",
+  );
+}
+
+if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
+
+app.use(
+  "/api",
+  session({
+    name: "safebite.sid",
+    secret: sessionSecret,
+    store: new MongoSessionStore(),
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    },
+  }),
+);
+app.use("/api", passport.initialize(), passport.session());
+app.use("/api/auth", authRouter);
+
 app.use("/api/recalls", recallsRouter);
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api", reportsRouter);
@@ -65,6 +100,8 @@ const PORT = process.env.PORT || 3000;
 try {
   // Connect the shared MongoDB client before accepting requests.
   await client.connect();
+  await ensureUserIndexes();
+  await ensureSessionIndexes();
 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
