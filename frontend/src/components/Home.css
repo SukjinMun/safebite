@@ -63,3 +63,35 @@
 .home-button:hover {
   background: #255638;
 }
+
+.home-intro {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) 0;
+  text-align: center;
+}
+
+/* intro and tagline */
+
+.home-intro {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) 0;
+  text-align: center;
+}
+
+.home-intro p {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.home-intro .home-intro-tagline {
+  margin-top: 1.25rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green);
+  font-style: bold;
+}
