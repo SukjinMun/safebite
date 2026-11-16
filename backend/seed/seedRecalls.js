@@ -45,6 +45,20 @@ const CATALOG = {
   },
 };
 
+// product variants
+const VARIANTS = {
+  Produce: ["", "Organic", "Pre-Washed", "Family Size"],
+  Dairy: ["", "Organic", "Low-Fat", "Lactose-Free"],
+  Meat: ["", "Organic", "Grass-Fed", "Seasoned"],
+  Seafood: ["", "Wild-Caught", "Farm-Raised", "Lemon Pepper"],
+  Bakery: ["", "Whole Wheat", "Gluten-Free", "Mini"],
+  Snacks: ["", "Honey Roasted", "Sea Salt", "Gluten-Free"],
+  Frozen: ["", "Organic", "Family Size", "Microwavable"],
+  Beverages: ["", "Organic", "Unsweetened", "Low Sugar"],
+  Pantry: ["", "Organic", "Value Size", "Store Brand"],
+  "Baby Food": ["", "Organic", "Stage 1", "Stage 2"],
+};
+
 const BRANDS = ["GreenLeaf Farms", "Boston Fresh", "Sunny Farms", "Maple Ridge", "Coastal Kitchen", "Golden Fields", "Blue Hill Foods", "PineHill Valley", "Red Maple Barn", "Silver Creek", "Oak & Grain", "Little Sprout"];
 
 const FIRM_LOCATIONS = [
@@ -104,6 +118,18 @@ function pickWeighted(items) {
   return items[items.length - 1];
 }
 
+const PRODUCT_LINES = Object.fromEntries(
+  Object.entries(CATALOG).map(([category, { products }]) => [
+    category,
+    products.flatMap((name) =>
+      VARIANTS[category].map((variant) => ({
+        product: `${variant} ${name}`.trim(),
+        brands: pickMany(BRANDS, 2, 2),
+      })),
+    ),
+  ]),
+);
+
 function buildHazard(category) {
   let hazard = pickWeighted(HAZARDS);
 
@@ -155,8 +181,9 @@ function buildDates() {
 
 function buildRecall(index) {
   const category = pick(Object.keys(CATALOG));
-  const { products, sizes } = CATALOG[category];
-  const brand = pick(BRANDS);
+  const { sizes } = CATALOG[category];
+  const line = pick(PRODUCT_LINES[category]);
+  const brand = pick(line.brands);
   const [firmCity, firmState] = pick(FIRM_LOCATIONS);
   const dates = buildDates();
   const initials = brand.split(" ").map((w) => w[0]).join("").replace(/[^A-Za-z]/g, "").toUpperCase();
@@ -164,7 +191,7 @@ function buildRecall(index) {
 
   return {
     recallNumber: `F-${String(index + 1).padStart(4, "0")}-${dates.recallDate.getFullYear()}`,
-    product: pick(products),
+    product: line.product,
     brand,
     category,
     productType: "Food",
