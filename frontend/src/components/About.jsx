@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import RecallsAbout from "./recalls/RecallsAbout.jsx";
 import RestaurantAbout from "./inspections/RestaurantAbout.jsx";
+import SiteFooter from "./SiteFooter.jsx";
 import "./About.css";
 
 function About() {
@@ -12,16 +13,20 @@ function About() {
   }, []);
 
   return (
-    <main className="about-page">
-      <header className="about-page__header">
-        <h1 ref={headingRef} tabIndex={-1}>
-          About SafeBite
-        </h1>
-      </header>
+    <>
+      <main className="about-page">
+        <header className="about-page__header">
+          <h1 ref={headingRef} tabIndex={-1}>
+            About SafeBite
+          </h1>
+        </header>
 
-      <RecallsAbout />
-      <RestaurantAbout />
-    </main>
+        <RecallsAbout />
+        <RestaurantAbout />
+      </main>
+
+      <SiteFooter />
+    </>
   );
 }
 

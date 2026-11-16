@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PageBanner from "../PageBanner.jsx";
+import SiteFooter from "../SiteFooter.jsx";
 import CategoryButtons from "./CategoryButtons.jsx";
 import SearchBar from "./SearchBar.jsx";
 import GroceryListButton from "./GroceryListButton.jsx";
@@ -62,43 +63,47 @@ function RecallsPage() {
   }
 
   return (
-    <main>
-      <PageBanner title="FOOD RECALLS" image="/grocery.jpg" position="center 60%" />
+    <>
+      <main>
+        <PageBanner title="FOOD RECALLS" image="/grocery.jpg" position="center 60%" />
 
-      <div className="recalls-content">
-        <CategoryButtons
-          categories={CATEGORIES}
-          selected={category}
-          onSelect={handleCategory}
-        />
+        <div className="recalls-content">
+          <CategoryButtons
+            categories={CATEGORIES}
+            selected={category}
+            onSelect={handleCategory}
+          />
 
-        <div className="recalls-toolbar">
-          <SearchBar onSearch={handleSearch} />
-          <GroceryListButton />
+          <div className="recalls-toolbar">
+            <SearchBar onSearch={handleSearch} />
+            <GroceryListButton />
+          </div>
+
+          {error && <p className="recalls-message">{error}</p>}
+          {!error && loading && <p className="recalls-message">Loading recalls . . .</p>}
+          {!error && !loading && recalls.length === 0 && (
+            <p className="recalls-message">No recalls match your search.</p>
+          )}
+
+          {!error && !loading && recalls.length > 0 && (
+            <>
+              <div className="recalls-grid">
+                {recalls.map((recall) => (
+                  <RecallCard key={recall._id} recall={recall} />
+                ))}
+              </div>
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+              />
+            </>
+          )}
         </div>
+      </main>
 
-        {error && <p className="recalls-message">{error}</p>}
-        {!error && loading && <p className="recalls-message">Loading recalls . . .</p>}
-        {!error && !loading && recalls.length === 0 && (
-          <p className="recalls-message">No recalls match your search.</p>
-        )}
-
-        {!error && !loading && recalls.length > 0 && (
-          <>
-            <div className="recalls-grid">
-              {recalls.map((recall) => (
-                <RecallCard key={recall._id} recall={recall} />
-              ))}
-            </div>
-            <Pagination
-              page={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
-            />
-          </>
-        )}
-      </div>
-    </main>
+      <SiteFooter showFdaLink />
+    </>
   );
 }
 
