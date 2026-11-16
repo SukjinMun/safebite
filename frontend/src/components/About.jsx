@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import RecallsAbout from "./recalls/RecallsAbout.jsx";
 import RestaurantAbout from "./inspections/RestaurantAbout.jsx";
 import "./About.css";
 
@@ -18,6 +19,7 @@ function About() {
         </h1>
       </header>
 
+      <RecallsAbout />
       <RestaurantAbout />
     </main>
   );
