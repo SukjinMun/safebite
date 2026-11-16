@@ -1,14 +1,14 @@
 import { client, db } from "../db/connection.js";
 
-const NUM_RECALLS = 10;
+const NUM_RECALLS = 1200;
 
 const CATALOG = {
   Produce: {
-    products: ["Baby Spinach", "Romaine Lettuce", "Oranges", "Cilantro", "Yellow Onions", "Red Onions", "Salad Mix", "Tomato", "Peppers", "Kale"],
+    products: ["Baby Spinach", "Romaine Lettuce", "Cilantro", "Red Onions", "Salad Mix", "Peppers", "Kale"],
     sizes: ["each", "1 bunch", "16 oz bag", "1 lb", "2 lb bag", "3 lb bag", "5 lb bag"],
   },
   Dairy: {
-    products: ["Whole Milk", "Shredded Mozzarella", "Greek Yogurt", "Cream Cheese", "Butter", "Ice Cream", "Pepper Jack Cheese"],
+    products: ["Whole Milk", "Shredded Mozzarella", "Greek Yogurt", "Cream Cheese", "Ice Cream", "Pepper Jack Cheese"],
     sizes: ["8 oz", "16 oz", "32 oz", "half gallon", "1 gallon"],
   },
   Meat: {
@@ -57,7 +57,7 @@ const STATES = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI"
 
 const RETAILERS = ["Whole Foods", "Stop & Shop", "Trader Joe's", "Market Basket", "Star Market", "Walmart", "Target", "Costco", "Aldi", "Sams Club"];
 
-// possible problems 
+// possible problems
 const HAZARDS = [
   { type: "bacterial", weight: 40, reasons: ["Possible Listeria monocytogenes contamination", "Possible Salmonella contamination", "Possible E. coli O157:H7 contamination", "Possible Clostridium botulinum contamination"] },
   { type: "allergen", weight: 35, reasons: [] },
@@ -66,19 +66,37 @@ const HAZARDS = [
 ];
 
 const ALLERGENS = ["Peanuts", "Tree Nuts", "Milk", "Eggs", "Soy", "Wheat", "Fish", "Shellfish", "Sesame"];
+const ALLERGEN_CATEGORIES = ["Dairy", "Meat", "Seafood", "Bakery", "Snacks", "Frozen", "Pantry", "Baby Food"];
+
+// allergens a category contains, so they can't be "undeclared"
+const OBVIOUS_ALLERGENS = {
+  Dairy: ["Milk"],
+  Seafood: ["Fish", "Shellfish"],
+  Bakery: ["Wheat"],
+};
 
 const CONSUMER_ACTIONS = ["Throw away", "Return to store for a full refund", "Do not consume; contact the company for a refund"];
+const NOW = new Date("2026-11-15T12:00:00Z");
+
+// seeded random generator
+let seedState = 5610;
+function random() {
+  seedState = (seedState + 0x6d2b79f5) | 0;
+  let t = Math.imul(seedState ^ (seedState >>> 15), 1 | seedState);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
 
 // helper func
-const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const rand = (min, max) => Math.floor(random() * (max - min + 1)) + min;
 const pick = (arr) => arr[rand(0, arr.length - 1)];
 const pickMany = (arr, min, max) =>
-  [...arr].sort(() => Math.random() - 0.5).slice(0, rand(min, max));
+  [...arr].sort(() => random() - 0.5).slice(0, rand(min, max));
 const addDays = (date, days) => new Date(date.getTime() + days * 86400000);
 
 function pickWeighted(items) {
   const total = items.reduce((sum, i) => sum + i.weight, 0);
-  let r = Math.random() * total;
+  let r = random() * total;
   for (const item of items) {
     r -= item.weight;
     if (r <= 0) return item;
@@ -86,14 +104,14 @@ function pickWeighted(items) {
   return items[items.length - 1];
 }
 
-const OBVIOUS_ALLERGENS = {
-  Dairy: ["Milk"],
-  Seafood: ["Fish", "Shellfish"],
-  Bakery: ["Wheat"],
-};
-
 function buildHazard(category) {
-  const hazard = pickWeighted(HAZARDS);
+  let hazard = pickWeighted(HAZARDS);
+
+  // produce and drinks get a different hazard instead of allergen
+  while (hazard.type === "allergen" && !ALLERGEN_CATEGORIES.includes(category)) {
+    hazard = pickWeighted(HAZARDS);
+  }
+
   if (hazard.type === "allergen") {
     const excluded = OBVIOUS_ALLERGENS[category] || [];
     const allergens = pickMany(ALLERGENS.filter((a) => !excluded.includes(a)), 1, 2);
@@ -101,7 +119,7 @@ function buildHazard(category) {
       reason: `Undeclared ${allergens.join(" and ").toLowerCase()}`,
       allergens,
       classification: "Class I",
-      illnessesReported: Math.random() < 0.2 ? rand(1, 4) : 0,
+      illnessesReported: random() < 0.2 ? rand(1, 4) : 0,
     };
   }
   return {
@@ -116,15 +134,18 @@ function buildHazard(category) {
 }
 
 function buildDates() {
-  const now = new Date();
-  const recallDate = addDays(now, -rand(0, 3 * 365));
+  const recallDate = addDays(NOW, -rand(20, 3 * 365));
   const reportDate = addDays(recallDate, rand(3, 20));
   let status = pick(["Ongoing", "Ongoing", "Completed", "Terminated", "Terminated"]);
   let terminationDate = null;
 
+  if (status === "Completed" && recallDate > addDays(NOW, -60)) {
+    status = "Ongoing";
+  }
+
   if (status === "Terminated") {
     terminationDate = addDays(reportDate, rand(60, 400));
-    if (terminationDate > now) {
+    if (terminationDate > NOW) {
       status = "Ongoing";
       terminationDate = null;
     }
@@ -139,7 +160,7 @@ function buildRecall(index) {
   const [firmCity, firmState] = pick(FIRM_LOCATIONS);
   const dates = buildDates();
   const initials = brand.split(" ").map((w) => w[0]).join("").replace(/[^A-Za-z]/g, "").toUpperCase();
-  const nationwide = Math.random() < 0.15;
+  const nationwide = random() < 0.15;
 
   return {
     recallNumber: `F-${String(index + 1).padStart(4, "0")}-${dates.recallDate.getFullYear()}`,
@@ -147,9 +168,10 @@ function buildRecall(index) {
     brand,
     category,
     productType: "Food",
+    isSynthetic: true,
     packageSize: pick(sizes),
     lotCodes: Array.from({ length: rand(1, 4) }, () => `${initials}${rand(1000, 9999)}`),
-    quantity: `${rand(100, 50000).toLocaleString()} ${pick(["cases", "units", "pounds"])}`,
+    quantity: `${rand(100, 50000).toLocaleString("en-US")} ${pick(["cases", "units", "pounds"])}`,
     ...buildHazard(category),
     status: dates.status,
     consumerAction: pick(CONSUMER_ACTIONS),
@@ -171,6 +193,13 @@ async function seed() {
   try {
     await client.connect();
     const recalls = db.collection("recalls");
+
+    const existing = await recalls.countDocuments();
+
+    if (existing > 0 && !process.argv.includes("--force")) {
+      console.log(`Recalls already seeded (${existing} records). Use --force to re-seed.`);
+      return;
+    }
 
     await recalls.deleteMany({});
     const docs = Array.from({ length: NUM_RECALLS }, (_, i) => buildRecall(i));
