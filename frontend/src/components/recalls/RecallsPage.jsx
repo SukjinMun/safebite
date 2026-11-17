@@ -19,6 +19,7 @@ function RecallsPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const params = new URLSearchParams({ page, pageSize: PAGE_SIZE });
@@ -38,6 +39,7 @@ function RecallsPage() {
         if (!ignore) {
           setRecalls(data.recalls);
           setTotalPages(data.totalPages);
+          setTotal(data.total);
         }
       })
       .catch(() => {
@@ -103,6 +105,11 @@ function RecallsPage() {
                 totalPages={totalPages}
                 onPageChange={setPage}
               />
+              <p className="recalls-count">
+                Showing {(page - 1) * PAGE_SIZE + 1}–
+                {Math.min(page * PAGE_SIZE, total)} of{" "}
+                {total.toLocaleString("en-US")} recalls
+              </p>
             </>
           )}
         </div>
@@ -112,6 +119,7 @@ function RecallsPage() {
     </>
   );
 }
+
 RecallsPage.propTypes = {};
 
 export default RecallsPage;
