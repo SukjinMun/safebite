@@ -24,7 +24,7 @@ function RecallAlert({ item, onClose }) {
         <>
           <h2 id="recall-alert-title">RECALLED ITEM!</h2>
           <p>
-            “{item.name}” matches {item.recalls.length} ongoing{" "}
+            “{item.name}” matches {item.recalls.length}{" "}
             {item.recalls.length === 1 ? "recall" : "recalls"}:
           </p>
 
@@ -44,7 +44,7 @@ function RecallAlert({ item, onClose }) {
           </ul>
 
           <button type="button" onClick={onClose}>
-            Got it
+            Okay
           </button>
         </>
       )}

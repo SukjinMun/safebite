@@ -71,8 +71,7 @@ function GroceryListPage() {
       return (
         <div className="grocery-page__signin">
           <p>
-            Sign in to create your grocery list and check it against ongoing
-            food recalls.
+            Want to create your own grocery list? Sign in!
           </p>
           <button type="button" onClick={() => openAuth("login")}>
             Sign in
@@ -86,8 +85,7 @@ function GroceryListPage() {
     return (
       <>
         <p className="grocery-page__intro">
-          Add the groceries you bought. Each item is checked against ongoing
-          food recalls.
+          Add groceries that you'd like to buy. We'll tell you if they've been recalled!
         </p>
 
         <GroceryItemForm onAdd={handleAdd} />
@@ -104,7 +102,7 @@ function GroceryListPage() {
 
         {!loadingItems && !list.error && items.length === 0 && (
           <p className="grocery-page__message">
-            Your list is empty. Add your first item above.
+            Your list is empty.
           </p>
         )}
 

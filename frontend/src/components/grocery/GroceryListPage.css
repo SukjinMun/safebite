@@ -21,7 +21,7 @@
   gap: 1rem;
   padding: 3rem 1rem;
   text-align: center;
-  background: #fff;
+  background: white;
   border: 1px solid #eadfcf;
   border-radius: 16px;
 }
@@ -35,7 +35,7 @@
   padding: 0.75rem 1.6rem;
   font: inherit;
   font-weight: 700;
-  color: #fff;
+  color: white;
   background: var(--green);
   border: none;
   border-radius: 999px;

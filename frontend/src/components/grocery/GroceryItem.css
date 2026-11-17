@@ -4,7 +4,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.9rem 1.1rem;
-  background: #fff;
+  background: white;
   border: 1px solid #eadfcf;
   border-left: 6px solid var(--green);
   border-radius: 12px;
@@ -44,7 +44,7 @@
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--green);
-  background: #fff;
+  background: white;
   border: 2px solid var(--green);
   border-radius: 999px;
   cursor: pointer;

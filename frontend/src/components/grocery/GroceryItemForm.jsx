@@ -40,7 +40,7 @@ function GroceryItemForm({ onAdd }) {
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          placeholder="e.g. spinach, peanut butter, ground beef"
+          placeholder="Example: Spinach, Butter, Lemon"
           maxLength={60}
         />
         <button type="submit" disabled={saving}>
