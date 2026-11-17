@@ -112,5 +112,6 @@ function RecallsPage() {
     </>
   );
 }
+RecallsPage.propTypes = {};
 
 export default RecallsPage;

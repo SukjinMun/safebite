@@ -28,7 +28,6 @@ function Home() {
         <div className="home-sections">
           <section className="home-section">
             <h2>Food Recalls</h2>
-            <p>{/* recalls description*/}</p>
             <Link to="/recalls" className="home-button">
               View food recalls
             </Link>
@@ -36,7 +35,6 @@ function Home() {
 
           <section className="home-section">
             <h2>Restaurant Inspections</h2>
-            <p>{/* inspections description */}</p>
             <Link to="/restaurants" className="home-button">
               View restaurant inspections
             </Link>
@@ -48,5 +46,6 @@ function Home() {
     </>
   );
 }
+Home.propTypes = {};
 
 export default Home;

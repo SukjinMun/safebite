@@ -11,5 +11,6 @@ function GroceryListButton() {
     </div>
   );
 }
+GroceryListButton.propTypes = {};
 
 export default GroceryListButton;
