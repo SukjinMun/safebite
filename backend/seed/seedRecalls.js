@@ -8,10 +8,11 @@ const CATALOG = {
       "Baby Spinach",
       "Romaine Lettuce",
       "Cilantro",
-      "Red Onions",
       "Salad Mix",
       "Peppers",
       "Kale",
+      "Brussels Sprouts",
+      "Strawberries",
     ],
     sizes: [
       "each",
@@ -29,6 +30,7 @@ const CATALOG = {
       "Shredded Mozzarella",
       "Greek Yogurt",
       "Cream Cheese",
+      "Cheddar Cheese",
     ],
     sizes: ["8 oz", "16 oz", "32 oz", "half gallon", "1 gallon"],
   },
@@ -39,11 +41,18 @@ const CATALOG = {
       "Pork Sausage",
       "Beef Jerky",
       "Hot Dogs",
+      "Bacon",
     ],
     sizes: ["12 oz", "1 lb", "2 lb", "3 lb family pack"],
   },
   Seafood: {
-    products: ["Smoked Salmon", "Canned Tuna", "Crab Meat", "Fish Sticks"],
+    products: [
+      "Smoked Salmon",
+      "Canned Tuna",
+      "Crab Meat",
+      "Fish Sticks",
+      "Cooked Shrimp",
+    ],
     sizes: ["4 oz", "6 oz can", "12 oz", "2 lb bag"],
   },
   Bakery: {
@@ -51,7 +60,7 @@ const CATALOG = {
       "Bread",
       "Bagels",
       "Blueberry Muffins",
-      "Chocolate Chip Cookies",
+      "Almond Cookies",
       "Flour Tortillas",
     ],
     sizes: ["6 count", "12 count", "20 oz loaf", "24 oz"],
@@ -63,6 +72,7 @@ const CATALOG = {
       "Potato Chips",
       "Pretzels",
       "Protein Bars",
+      "Coconut Almond Candy Bar",
     ],
     sizes: ["1.5 oz", "8 oz", "12 count box", "family size"],
   },
@@ -72,11 +82,18 @@ const CATALOG = {
       "Frozen Pizza",
       "Chicken Nuggets",
       "Chicken Popcorn",
+      "Frozen Waffles",
     ],
     sizes: ["10 oz", "16 oz", "2 lb bag", "4 count"],
   },
   Beverages: {
-    products: ["Orange Juice", "Almond Milk", "Soda"],
+    products: [
+      "Orange Juice",
+      "Almond Milk",
+      "Soda",
+      "Apple Juice",
+      "Iced Tea",
+    ],
     sizes: ["12 oz bottle", "32 oz", "52 oz", "half gallon"],
   },
   Pantry: {
@@ -86,27 +103,134 @@ const CATALOG = {
       "Ground Cinnamon",
       "Oatmeal",
       "Flour",
+      "Pasta Sauce",
     ],
     sizes: ["2 oz jar", "16 oz jar", "15 oz can", "5 lb bag"],
   },
   "Baby Food": {
-    products: ["Infant Formula", "Fruit Puree Pouches", "Crackers", "Cereal"],
+    products: [
+      "Infant Formula",
+      "Fruit Puree Pouches",
+      "Crackers",
+      "Cereal",
+      "Veggie Puree Jars",
+    ],
     sizes: ["4 oz pouch", "8 oz", "12.4 oz can", "22 oz can"],
   },
 };
 
 // product variants
 const VARIANTS = {
-  Produce: ["", "Organic", "Pre-Washed", "Family Size"],
-  Dairy: ["", "Organic", "Low-Fat", "Lactose-Free"],
-  Meat: ["", "Organic", "Grass-Fed", "Seasoned"],
-  Seafood: ["", "Wild-Caught", "Farm-Raised", "Lemon Pepper"],
-  Bakery: ["", "Whole Wheat", "Gluten-Free", "Mini"],
-  Snacks: ["", "Honey Roasted", "Sea Salt", "Gluten-Free"],
-  Frozen: ["", "Organic", "Family Size", "Microwavable"],
-  Beverages: ["", "Organic", "Unsweetened", "Low Sugar"],
-  Pantry: ["", "Organic", "Value Size", "Store Brand"],
-  "Baby Food": ["", "Organic", "Stage 1", "Stage 2"],
+  Produce: [
+    "",
+    "Organic",
+    "Pre-Washed",
+    "Family Size",
+    "Local",
+    "Snack Pack",
+    "Bagged",
+    "Fresh Cut",
+    "Value Pack",
+  ],
+  Dairy: [
+    "",
+    "Organic",
+    "Low-Fat",
+    "Lactose-Free",
+    "Reduced Fat",
+    "Family Size",
+    "Grass-Fed",
+    "Value Pack",
+    "Single Serve",
+  ],
+  Meat: [
+    "",
+    "Organic",
+    "Grass-Fed",
+    "Seasoned",
+    "Family Pack",
+    "Thin Sliced",
+    "Smoked",
+    "Lean",
+    "Value Pack",
+  ],
+  Seafood: [
+    "",
+    "Wild-Caught",
+    "Farm-Raised",
+    "Family Size",
+    "Seasoned",
+    "Value Pack",
+    "Premium",
+    "Single Serve",
+    "Lightly Salted",
+  ],
+  Bakery: [
+    "",
+    "Whole Wheat",
+    "Gluten-Free",
+    "Mini",
+    "Family Size",
+    "Multigrain",
+    "Fresh Baked",
+    "Value Pack",
+    "Sugar-Free",
+  ],
+  Snacks: [
+    "",
+    "Honey Roasted",
+    "Sea Salt",
+    "Gluten-Free",
+    "Snack Size",
+    "Family Size",
+    "Spicy",
+    "Reduced Fat",
+    "Value Pack",
+  ],
+  Frozen: [
+    "",
+    "Organic",
+    "Family Size",
+    "Microwavable",
+    "Single Serve",
+    "Value Pack",
+    "Gluten-Free",
+    "Party Size",
+    "Premium",
+  ],
+  Beverages: [
+    "",
+    "Organic",
+    "Unsweetened",
+    "Low Sugar",
+    "Family Size",
+    "Single Serve",
+    "Premium",
+    "Value Pack",
+    "Mini",
+  ],
+  Pantry: [
+    "",
+    "Organic",
+    "Value Size",
+    "Store Brand",
+    "Reduced Sodium",
+    "Family Size",
+    "Gluten-Free",
+    "Bulk",
+    "Premium",
+  ],
+  "Baby Food": [
+    "",
+    "Organic",
+    "Stage 1",
+    "Stage 2",
+    "Stage 3",
+    "Value Pack",
+    "Sensitive",
+    "Gentle",
+    "Iron-Fortified",
+  ],
 };
 
 const BRANDS = [
@@ -237,40 +361,53 @@ const HAZARDS = [
   },
 ];
 
-const ALLERGENS = [
-  "Peanuts",
-  "Tree Nuts",
-  "Milk",
-  "Eggs",
-  "Soy",
-  "Wheat",
-  "Fish",
-  "Shellfish",
-  "Sesame",
-];
-const ALLERGEN_CATEGORIES = [
-  "Dairy",
-  "Meat",
-  "Seafood",
-  "Bakery",
-  "Snacks",
-  "Frozen",
-  "Pantry",
-  "Baby Food",
-];
-
-// allergens a category contains, so they can't be "undeclared"
-const OBVIOUS_ALLERGENS = {
-  Dairy: ["Milk"],
-  Seafood: ["Fish", "Shellfish"],
-  Bakery: ["Wheat"],
+const CATEGORY_ALLERGENS = {
+  Dairy: ["Peanuts", "Tree Nuts", "Eggs", "Soy"],
+  Meat: ["Soy", "Wheat", "Sesame"],
+  Seafood: ["Wheat", "Soy", "Eggs"],
+  Bakery: ["Peanuts", "Tree Nuts", "Eggs", "Milk", "Soy", "Sesame"],
+  Snacks: ["Peanuts", "Tree Nuts", "Milk", "Soy", "Sesame", "Wheat"],
+  Frozen: ["Soy", "Wheat", "Eggs", "Sesame"],
+  Pantry: ["Peanuts", "Tree Nuts", "Soy", "Wheat", "Sesame"],
+  "Baby Food": ["Milk", "Soy", "Wheat", "Eggs"],
 };
 
-const CONSUMER_ACTIONS = [
-  "Throw away",
-  "Return to store for a full refund",
-  "Do not consume; contact the company for a refund",
-];
+const ALLERGEN_KEYWORDS = {
+  Peanuts: ["peanut"],
+  "Tree Nuts": ["almond", "nut", "coconut", "trail mix"],
+  Milk: ["milk", "cheese", "yogurt", "cream", "butter", "alfredo", "formula"],
+  Eggs: ["egg", "waffle", "pancake"],
+  Soy: ["soy", "edamame"],
+  Wheat: [
+    "flour",
+    "bread",
+    "bagel",
+    "muffin",
+    "cookie",
+    "tortilla",
+    "pizza",
+    "cereal",
+    "cracker",
+    "pretzel",
+    "oatmeal",
+    "waffle",
+    "nugget",
+    "popcorn",
+    "fish stick",
+  ],
+  Sesame: ["hummus", "sesame"],
+};
+
+const ACTIONS_BY_HAZARD = {
+  bacterial: ["Throw away", "Do not consume; contact the company for a refund"],
+  foreign: ["Do not consume; contact the company for a refund", "Throw away"],
+  allergen: [
+    "Return to store for a full refund",
+    "Do not consume if you have this allergy; return to store for a refund",
+  ],
+  mislabel: ["Return to store for a full refund"],
+};
+
 const NOW = new Date("2026-11-15T12:00:00Z");
 
 // seeded random generator
@@ -285,9 +422,18 @@ function random() {
 // helper func
 const rand = (min, max) => Math.floor(random() * (max - min + 1)) + min;
 const pick = (arr) => arr[rand(0, arr.length - 1)];
-const pickMany = (arr, min, max) =>
-  [...arr].sort(() => random() - 0.5).slice(0, rand(min, max));
 const addDays = (date, days) => new Date(date.getTime() + days * 86400000);
+
+function shuffle(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = rand(0, i);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+const pickMany = (arr, min, max) => shuffle(arr).slice(0, rand(min, max));
 
 function pickWeighted(items) {
   const total = items.reduce((sum, i) => sum + i.weight, 0);
@@ -299,41 +445,48 @@ function pickWeighted(items) {
   return items[items.length - 1];
 }
 
-const PRODUCT_LINES = Object.fromEntries(
-  Object.entries(CATALOG).map(([category, { products }]) => [
-    category,
+const PRODUCT_LINES = Object.entries(CATALOG).flatMap(
+  ([category, { products }]) =>
     products.flatMap((name) =>
       VARIANTS[category].map((variant) => ({
+        category,
         product: `${variant} ${name}`.trim(),
         brands: pickMany(BRANDS, 2, 2),
       })),
     ),
-  ]),
 );
 
-function buildHazard(category) {
+const SLOTS = shuffle(
+  PRODUCT_LINES.flatMap((line) =>
+    line.brands.map((brand) => ({ ...line, brand })),
+  ),
+).slice(0, NUM_RECALLS);
+
+function allowedAllergens(category, product) {
+  const name = product.toLowerCase();
+  return (CATEGORY_ALLERGENS[category] || []).filter(
+    (allergen) =>
+      !(ALLERGEN_KEYWORDS[allergen] || []).some((word) => name.includes(word)),
+  );
+}
+
+function buildHazard(category, product) {
+  const allowed = allowedAllergens(category, product);
   let hazard = pickWeighted(HAZARDS);
 
   // produce and drinks get a different hazard instead of allergen
-  while (
-    hazard.type === "allergen" &&
-    !ALLERGEN_CATEGORIES.includes(category)
-  ) {
+  while (hazard.type === "allergen" && allowed.length === 0) {
     hazard = pickWeighted(HAZARDS);
   }
 
   if (hazard.type === "allergen") {
-    const excluded = OBVIOUS_ALLERGENS[category] || [];
-    const allergens = pickMany(
-      ALLERGENS.filter((a) => !excluded.includes(a)),
-      1,
-      2,
-    );
+    const allergens = pickMany(allowed, 1, Math.min(2, allowed.length));
     return {
       reason: `Undeclared ${allergens.join(" and ").toLowerCase()}`,
       allergens,
       classification: "Class I",
       illnessesReported: random() < 0.2 ? rand(1, 4) : 0,
+      consumerAction: pick(ACTIONS_BY_HAZARD.allergen),
     };
   }
   return {
@@ -346,6 +499,7 @@ function buildHazard(category) {
           ? "Class II"
           : pick(["Class II", "Class III"]),
     illnessesReported: hazard.type === "bacterial" ? rand(0, 25) : 0,
+    consumerAction: pick(ACTIONS_BY_HAZARD[hazard.type]),
   };
 }
 
@@ -375,11 +529,9 @@ function buildDates() {
   return { recallDate, reportDate, terminationDate, status };
 }
 
-function buildRecall(index) {
-  const category = pick(Object.keys(CATALOG));
+function buildRecall(index, slot) {
+  const { category, product, brand } = slot;
   const { sizes } = CATALOG[category];
-  const line = pick(PRODUCT_LINES[category]);
-  const brand = pick(line.brands);
   const [firmCity, firmState] = pick(FIRM_LOCATIONS);
   const dates = buildDates();
   const initials = brand
@@ -392,7 +544,8 @@ function buildRecall(index) {
 
   return {
     recallNumber: `F-${String(index + 1).padStart(4, "0")}-${dates.recallDate.getFullYear()}`,
-    product: line.product,
+    displayOrder: index,
+    product,
     brand,
     category,
     productType: "Food",
@@ -403,9 +556,8 @@ function buildRecall(index) {
       () => `${initials}${rand(1000, 9999)}`,
     ),
     quantity: `${rand(100, 50000).toLocaleString("en-US")} ${pick(["cases", "units", "pounds"])}`,
-    ...buildHazard(category),
+    ...buildHazard(category, product),
     status: dates.status,
-    consumerAction: pick(CONSUMER_ACTIONS),
     firm: `${brand} ${pick(["LLC", "Inc.", "Co."])}`,
     firmCity,
     firmState,
@@ -434,10 +586,11 @@ async function seed() {
     }
 
     await recalls.deleteMany({});
-    const docs = Array.from({ length: NUM_RECALLS }, (_, i) => buildRecall(i));
+    const docs = SLOTS.map((slot, i) => buildRecall(i, slot));
     const result = await recalls.insertMany(docs);
 
     // grocery list matching and search
+    await recalls.createIndex({ displayOrder: 1 });
     await recalls.createIndex({
       product: "text",
       brand: "text",
