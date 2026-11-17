@@ -6,7 +6,9 @@ import RecallsPage from "./components/recalls/RecallsPage.jsx";
 import AuthProvider from "./components/auth/AuthProvider.jsx";
 import AuthDialog from "./components/auth/AuthDialog.jsx";
 import About from "./components/About.jsx";
+import GroceryListPage from "./components/grocery/GroceryListPage.jsx";
 import "./App.css";
+
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
                   </main>
                 }
               />
+              <Route path="/grocery-list" element={<GroceryListPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>

@@ -1,0 +1,58 @@
+.grocery-page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 2.5rem clamp(1rem, 4vw, 3rem) 4rem;
+}
+
+.grocery-page__intro {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.grocery-page__message {
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.grocery-page__signin {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #eadfcf;
+  border-radius: 16px;
+}
+
+.grocery-page__signin p {
+  max-width: 28rem;
+  margin: 0;
+}
+
+.grocery-page__signin button {
+  padding: 0.75rem 1.6rem;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--green);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.grocery-page__summary {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.grocery-page__list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

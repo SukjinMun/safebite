@@ -1,0 +1,54 @@
+.grocery-form {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.grocery-form__label {
+  font-weight: 700;
+}
+
+.grocery-form__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.grocery-form__row input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  font: inherit;
+  background: #fff;
+  border: 2px solid #d9cfc1;
+  border-radius: 999px;
+}
+
+.grocery-form__row input:focus {
+  border-color: var(--green);
+  outline: none;
+}
+
+.grocery-form__row button {
+  padding: 0.75rem 1.4rem;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--green);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.grocery-form__row button:hover:not(:disabled) {
+  background: #255638;
+}
+
+.grocery-form__row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.grocery-form__error {
+  margin: 0;
+  color: #8f1d17;
+}

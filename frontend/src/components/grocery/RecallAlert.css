@@ -1,0 +1,66 @@
+.recall-alert {
+  width: min(32rem, calc(100% - 2rem));
+  padding: 1.75rem;
+  color: var(--ink);
+  background: #fff;
+  border: none;
+  border-top: 8px solid #b3261e;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.recall-alert::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.recall-alert h2 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: #b3261e;
+  text-align: center;
+}
+
+.recall-alert p {
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.recall-alert__list {
+  display: grid;
+  gap: 0.75rem;
+  max-height: 50vh;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.recall-alert__list li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.75rem 1rem;
+  background: #fff7f6;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.recall-alert__action {
+  font-weight: 700;
+}
+
+.recall-alert button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: #b3261e;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.recall-alert button:hover {
+  background: #8f1d17;
+}
