@@ -13,6 +13,7 @@ import authRouter from "./routes/auth.js";
 import restaurantsRouter from "./routes/restaurants.js";
 import reportsRouter from "./routes/reports.js";
 import recallsRouter from "./routes/recalls.js";
+import groceryItemsRouter from "./routes/groceryItems.js";
 
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -54,6 +55,7 @@ app.use("/api", passport.initialize(), passport.session());
 app.use("/api/auth", authRouter);
 
 app.use("/api/recalls", recallsRouter);
+app.use("/api/grocery-items", groceryItemsRouter);
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api", reportsRouter);
 
