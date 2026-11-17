@@ -2,8 +2,16 @@ import { ObjectId } from "mongodb";
 import { db } from "./connection.js";
 
 const CATEGORY_ORDER = [
-  "Produce", "Dairy", "Meat", "Seafood", "Bakery",
-  "Snacks", "Frozen", "Beverages", "Pantry", "Baby Food",
+  "Produce",
+  "Dairy",
+  "Meat",
+  "Seafood",
+  "Bakery",
+  "Snacks",
+  "Frozen",
+  "Beverages",
+  "Pantry",
+  "Baby Food",
 ];
 
 export async function listRecalls({

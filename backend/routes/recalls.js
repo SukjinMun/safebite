@@ -4,8 +4,16 @@ import { getRecallById, listRecalls } from "../db/recalls.js";
 const router = express.Router();
 
 const CATEGORIES = [
-  "Produce", "Dairy", "Meat", "Seafood", "Bakery",
-  "Snacks", "Frozen", "Beverages", "Pantry", "Baby Food",
+  "Produce",
+  "Dairy",
+  "Meat",
+  "Seafood",
+  "Bakery",
+  "Snacks",
+  "Frozen",
+  "Beverages",
+  "Pantry",
+  "Baby Food",
 ];
 const CLASSIFICATIONS = ["Class I", "Class II", "Class III"];
 const STATUSES = ["Ongoing", "Completed", "Terminated"];
@@ -39,7 +47,10 @@ router.get("/", async (req, res) => {
     return res.status(400).json({ error: "Unknown category." });
   }
 
-  if (filters.classification && !CLASSIFICATIONS.includes(filters.classification)) {
+  if (
+    filters.classification &&
+    !CLASSIFICATIONS.includes(filters.classification)
+  ) {
     return res.status(400).json({
       error: "classification must be Class I, Class II, or Class III.",
     });

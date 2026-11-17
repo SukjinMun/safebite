@@ -88,7 +88,11 @@ function GroceryItem({ item, onUpdate, onDelete, onShowRecalls }) {
           )}
 
           <div className="grocery-item__actions">
-            <button type="button" onClick={() => setEditing(true)} disabled={busy}>
+            <button
+              type="button"
+              onClick={() => setEditing(true)}
+              disabled={busy}
+            >
               Edit
             </button>
             <button type="button" onClick={handleDelete} disabled={busy}>

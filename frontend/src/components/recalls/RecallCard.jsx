@@ -28,7 +28,9 @@ function RecallCard({ recall }) {
         <span className={`recall-badge ${CLASS_STYLES[recall.classification]}`}>
           {recall.classification}
         </span>
-        <span className="recall-badge recall-badge-status">{recall.status}</span>
+        <span className="recall-badge recall-badge-status">
+          {recall.status}
+        </span>
       </div>
 
       <p className="recall-card-reason">{recall.reason}</p>

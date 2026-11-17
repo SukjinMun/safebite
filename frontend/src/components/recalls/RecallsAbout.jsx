@@ -42,8 +42,8 @@ function RecallsAbout() {
       <div className="recalls-about__data" id="recalls-data">
         <h3>About the recall data</h3>
         <p>
-          Recall records were generated with a custom seed script and follow
-          the structure of real FDA recall notices, including classification,
+          Recall records were generated with a custom seed script and follow the
+          structure of real FDA recall notices, including classification,
           status, lot codes, and distribution. The products, brands, and
           companies are fictional.
         </p>

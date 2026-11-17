@@ -43,10 +43,22 @@
   border-radius: 999px;
 }
 
-.recall-badge-class1 { color: #8f1d17; background: #fbe4e2; }
-.recall-badge-class2 { color: #8a4a0c; background: #fdebd6; }
-.recall-badge-class3 { color: #4f4a44; background: #ece8e2; }
-.recall-badge-status { color: var(--green); background: #e3f0e7; }
+.recall-badge-class1 {
+  color: #8f1d17;
+  background: #fbe4e2;
+}
+.recall-badge-class2 {
+  color: #8a4a0c;
+  background: #fdebd6;
+}
+.recall-badge-class3 {
+  color: #4f4a44;
+  background: #ece8e2;
+}
+.recall-badge-status {
+  color: var(--green);
+  background: #e3f0e7;
+}
 
 .recall-card-reason {
   margin: 0;

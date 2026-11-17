@@ -3,7 +3,11 @@ import "./CategoryButtons.css";
 
 function CategoryButtons({ categories, selected, onSelect }) {
   return (
-    <div className="category-buttons" role="group" aria-label="Filter by category">
+    <div
+      className="category-buttons"
+      role="group"
+      aria-label="Filter by category"
+    >
       {categories.map((category) => {
         const isActive = selected === category;
 

@@ -33,7 +33,8 @@ function RecallAlert({ item, onClose }) {
               <li key={recall._id}>
                 <strong>{recall.product}</strong>
                 <span>
-                  {recall.brand} · {recall.packageSize} · {recall.classification}
+                  {recall.brand} · {recall.packageSize} ·{" "}
+                  {recall.classification}
                 </span>
                 <span>{recall.reason}</span>
                 <span className="recall-alert__action">

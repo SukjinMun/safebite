@@ -16,9 +16,9 @@ function Home() {
             person? Either way, if you love to eat, you’re in the right place.
             SafeBite brings together food recalls and Boston restaurant
             inspection records so you can eat safely, wherever your meal comes
-            from. Create your own grocery list to see if anything you bought
-            has been recalled, and check out your favorite restaurants or
-            discover new ones.
+            from. Create your own grocery list to see if anything you bought has
+            been recalled, and check out your favorite restaurants or discover
+            new ones.
           </p>
           <p className="home-intro-tagline">
             We’re here for you. Eat safe with SafeBite.

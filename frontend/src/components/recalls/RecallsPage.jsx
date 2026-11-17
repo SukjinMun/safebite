@@ -65,7 +65,11 @@ function RecallsPage() {
   return (
     <>
       <main>
-        <PageBanner title="FOOD RECALLS" image="/grocery.jpg" position="center 60%" />
+        <PageBanner
+          title="FOOD RECALLS"
+          image="/grocery.jpg"
+          position="center 60%"
+        />
 
         <div className="recalls-content">
           <CategoryButtons
@@ -80,7 +84,9 @@ function RecallsPage() {
           </div>
 
           {error && <p className="recalls-message">{error}</p>}
-          {!error && loading && <p className="recalls-message">Loading recalls . . .</p>}
+          {!error && loading && (
+            <p className="recalls-message">Loading recalls . . .</p>
+          )}
           {!error && !loading && recalls.length === 0 && (
             <p className="recalls-message">No recalls match your search.</p>
           )}

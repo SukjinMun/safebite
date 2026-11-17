@@ -7,7 +7,9 @@ const recalls = db.collection("recalls");
 const MAX_ITEMS = 100;
 
 function toObjectId(id) {
-  return typeof id === "string" && ObjectId.isValid(id) ? new ObjectId(id) : null;
+  return typeof id === "string" && ObjectId.isValid(id)
+    ? new ObjectId(id)
+    : null;
 }
 
 function escapeRegex(text) {
@@ -19,7 +21,10 @@ export async function findRecallMatches(name) {
   const pattern = { $regex: escapeRegex(name), $options: "i" };
 
   return recalls
-    .find({ status: "Ongoing", $or: [{ product: pattern }, { brand: pattern }] })
+    .find({
+      status: "Ongoing",
+      $or: [{ product: pattern }, { brand: pattern }],
+    })
     .project({
       product: 1,
       brand: 1,

@@ -49,7 +49,9 @@ function GroceryListPage() {
     const { item } = await updateGroceryItem(itemId, name);
     setList((current) => ({
       ...current,
-      items: current.items.map((entry) => (entry._id === itemId ? item : entry)),
+      items: current.items.map((entry) =>
+        entry._id === itemId ? item : entry,
+      ),
     }));
     if (item.recalls.length > 0) setAlertItem(item);
   }
@@ -70,9 +72,7 @@ function GroceryListPage() {
     if (!user) {
       return (
         <div className="grocery-page__signin">
-          <p>
-            Want to create your own grocery list? Sign in!
-          </p>
+          <p>Want to create your own grocery list? Sign in!</p>
           <button type="button" onClick={() => openAuth("login")}>
             Sign in
           </button>
@@ -80,12 +80,15 @@ function GroceryListPage() {
       );
     }
 
-    const recalledCount = items.filter((item) => item.recalls.length > 0).length;
+    const recalledCount = items.filter(
+      (item) => item.recalls.length > 0,
+    ).length;
 
     return (
       <>
         <p className="grocery-page__intro">
-          Add groceries that you'd like to buy. We'll tell you if they've been recalled!
+          Add groceries that you’d like to buy. We’ll tell you if they’ve been
+          recalled!
         </p>
 
         <GroceryItemForm onAdd={handleAdd} />
@@ -101,9 +104,7 @@ function GroceryListPage() {
         )}
 
         {!loadingItems && !list.error && items.length === 0 && (
-          <p className="grocery-page__message">
-            Your list is empty.
-          </p>
+          <p className="grocery-page__message">Your list is empty.</p>
         )}
 
         {!loadingItems && items.length > 0 && (

@@ -9,7 +9,6 @@ import About from "./components/About.jsx";
 import GroceryListPage from "./components/grocery/GroceryListPage.jsx";
 import "./App.css";
 
-
 function App() {
   return (
     <BrowserRouter>
