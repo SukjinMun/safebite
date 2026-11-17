@@ -57,7 +57,12 @@ export async function listRecalls({
             categoryOrder: { $indexOfArray: [CATEGORY_ORDER, "$category"] },
           },
         },
-        { $sort: { categoryOrder: 1, product: 1, _id: 1 } },
+        {
+          $sort:
+            category || search
+              ? { categoryOrder: 1, product: 1, _id: 1 }
+              : { displayOrder: 1 },
+        },
         { $skip: (page - 1) * pageSize },
         { $limit: pageSize },
         { $project: { categoryOrder: 0 } },
