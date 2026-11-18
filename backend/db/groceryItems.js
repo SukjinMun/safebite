@@ -35,7 +35,6 @@ export async function findRecallMatches(name) {
       consumerAction: 1,
     })
     .sort({ recallDate: -1 })
-    .limit(5)
     .toArray();
 }
 
